@@ -1,0 +1,121 @@
+{
+  "ul. bolesława komorowskiego": {
+    "dzielnica": "Zwierzyniec",
+    "lat": "50.0538976",
+    "lon": "19.9203697",
+    "status": "success",
+    "variant_used": "structured_Bolesława Komorowskiego"
+  },
+  "tonie, prądnik biały, kraków, małopolskie": {
+    "dzielnica": "Czyżyny",
+    "lat": "50.0852790",
+    "lon": "19.9906243",
+    "status": "success",
+    "variant_used": "structured_małopolskie"
+  },
+  "ul. marii dąbrowskiej": {
+    "dzielnica": "Czyżyny",
+    "lat": "50.0740650",
+    "lon": "20.0121616",
+    "status": "success",
+    "variant_used": "structured_Marii Dąbrowskiej"
+  },
+  "ul. kujawska": {
+    "dzielnica": "Krowodrza",
+    "lat": "50.0727808",
+    "lon": "19.9227744",
+    "status": "success",
+    "variant_used": "structured_Kujawska"
+  },
+  "skotniki": {
+    "dzielnica": "Dębniki",
+    "lat": "50.0021014",
+    "lon": "19.8672569",
+    "status": "success",
+    "variant_used": "structured_Skotniki"
+  },
+  "ruczaj, dębniki, kraków, małopolskie": {
+    "dzielnica": "Czyżyny",
+    "lat": "50.0852790",
+    "lon": "19.9906243",
+    "status": "success",
+    "variant_used": "structured_małopolskie"
+  },
+  "ul. rakowicka": {
+    "dzielnica": "Grzegórzki",
+    "lat": "50.0771319",
+    "lon": "19.9591349",
+    "status": "success",
+    "variant_used": "structured_Rakowicka"
+  },
+  "ul. eljasza walerego radzikowskiego": {
+    "dzielnica": "Prądnik Biały",
+    "lat": "50.0842386",
+    "lon": "19.9008258",
+    "status": "success",
+    "variant_used": "structured_Radzikowskiego"
+  },
+  "ul. karola bunscha": {
+    "dzielnica": "Dębniki",
+    "lat": "50.0088483",
+    "lon": "19.8815969",
+    "status": "success",
+    "variant_used": "structured_Karola Bunscha"
+  },
+  "ul. gen. bolesława roi": {
+    "dzielnica": "Podgórze Duchackie",
+    "lat": "50.0209786",
+    "lon": "19.9521016",
+    "status": "success",
+    "variant_used": "structured_Gen. Bolesława Roi"
+  },
+  "os. piastów": {
+    "dzielnica": "Mistrzejowice",
+    "lat": "50.1019272",
+    "lon": "20.0119093",
+    "status": "success",
+    "variant_used": "structured_Piastów"
+  },
+  "ul. skowronia": {
+    "dzielnica": "Podgórze Duchackie",
+    "lat": "50.0255883",
+    "lon": "19.9682263",
+    "status": "success",
+    "variant_used": "structured_Skowronia"
+  },
+  "łagiewniki-borek fałęcki": {
+    "dzielnica": "Podgórze Duchackie",
+    "lat": "50.0180107",
+    "lon": "19.9227699",
+    "status": "success",
+    "variant_used": "structured_Fałęcki"
+  },
+  "stare podgórze, podgórze, kraków, małopolskie": {
+    "dzielnica": "Czyżyny",
+    "lat": "50.0852790",
+    "lon": "19.9906243",
+    "status": "success",
+    "variant_used": "structured_małopolskie"
+  },
+  "ul. bajeczna": {
+    "dzielnica": "Grzegórzki",
+    "lat": "50.0575031",
+    "lon": "19.9764216",
+    "status": "success",
+    "variant_used": "structured_Bajeczna"
+  },
+  "ul. dr. jana piltza": {
+    "dzielnica": "Dębniki",
+    "lat": "50.0119488",
+    "lon": "19.8917764",
+    "status": "success",
+    "variant_used": "structured_Dr. Jana Piltza"
+  },
+  "ul. św. tomasza": {
+    "dzielnica": "Stare Miasto",
+    "lat": "50.0621417",
+    "lon": "19.9421830",
+    "status": "success",
+    "variant_used": "structured_Św. Tomasza"
+  }
+}

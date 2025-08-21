@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "apartament-hunting"
+version = "0.1.0"
+description = "Aplikacja do szukania mieszkań na wynajem w Krakowie"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+selenium = "^4.15.0"
+beautifulsoup4 = "^4.12.0"
+requests = "^2.31.0"
+flask = "^3.0.0"
+pandas = "^2.1.0"
+plotly = "^5.17.0"
+webdriver-manager = "^4.0.0"
+playwright = "^1.40.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.0.0"
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
