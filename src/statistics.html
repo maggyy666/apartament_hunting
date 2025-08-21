@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - Apartament Hunting</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <h1><a href="index.html" class="nav-logo">Apartament Hunting</a></h1>
+            <div class="nav-actions">
+                <a href="statistics.html" class="nav-link active">Statistics</a>
+                <div class="nav-stats">
+                    Offers: <span id="total-offers">0</span>
+                </div>
+                <a href="legal.html" class="nav-link">Legal</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <div class="page-content">
+            <h2>Statistics</h2>
+            
+                         <!-- Navigation Tabs -->
+             <div class="stats-nav">
+                 <button class="nav-tab active" data-section="overview">Overview</button>
+                 <button class="nav-tab" data-section="districts">Districts</button>
+                 <button class="nav-tab" data-section="prices">Price Analysis</button>
+                 <button class="nav-tab" data-section="areas">Area Analysis</button>
+                 <button class="nav-tab" data-section="admin-fees">Admin Fees</button>
+                 <button class="nav-tab" data-section="geography">Geography</button>
+                 <button class="nav-tab" data-section="insights">Insights</button>
+             </div>
+
+            <!-- Overview Section -->
+            <div class="stats-section active" id="overview">
+                <h3>Market Overview</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Average Rent</h3>
+                        <div class="stat-value" id="avg-rent">-</div>
+                        <div class="stat-subtitle">PLN/month</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Median Rent</h3>
+                        <div class="stat-value" id="median-rent">-</div>
+                        <div class="stat-subtitle">PLN/month</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Price/m²</h3>
+                        <div class="stat-value" id="avg-price-per-m2">-</div>
+                        <div class="stat-subtitle">PLN/m²</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Cost/m²</h3>
+                        <div class="stat-value" id="avg-total-per-m2">-</div>
+                        <div class="stat-subtitle">PLN/m²</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Area</h3>
+                        <div class="stat-value" id="avg-area">-</div>
+                        <div class="stat-subtitle">m²</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Admin Fee Share</h3>
+                        <div class="stat-value" id="admin-fee-share">-</div>
+                        <div class="stat-subtitle">% of total</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Offers</h3>
+                        <div class="stat-value" id="total-offers">-</div>
+                        <div class="stat-subtitle">apartments</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Data Quality</h3>
+                        <div class="stat-value" id="data-quality">-</div>
+                        <div class="stat-subtitle">% complete</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Districts Section -->
+            <div class="stats-section" id="districts">
+                <h3>District Analysis</h3>
+                <div class="table-container">
+                    <table id="district-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>District</th>
+                                <th>Offers</th>
+                                <th>Median Rent</th>
+                                <th>Median Area</th>
+                                <th>Median Price/m²</th>
+                                <th>Median Total/m²</th>
+                                <th>Admin Fee Share</th>
+                            </tr>
+                        </thead>
+                        <tbody id="district-table-body">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="chart-container">
+                    <canvas id="district-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Prices Section -->
+            <div class="stats-section" id="prices">
+                <h3>Price Analysis</h3>
+                <div class="chart-container">
+                    <canvas id="price-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="price-boxplot"></canvas>
+                </div>
+            </div>
+
+            <!-- Areas Section -->
+            <div class="stats-section" id="areas">
+                <h3>Area Analysis</h3>
+                <div class="chart-container">
+                    <canvas id="scatter-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="area-distribution"></canvas>
+                </div>
+            </div>
+
+            <!-- Admin Fees Section -->
+            <div class="stats-section" id="admin-fees">
+                <h3>Administrative Fees Analysis</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Average Admin Fee</h3>
+                        <div class="stat-value" id="avg-admin-fee">-</div>
+                        <div class="stat-subtitle">PLN/month</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Median Admin Fee</h3>
+                        <div class="stat-value" id="median-admin-fee">-</div>
+                        <div class="stat-subtitle">PLN/month</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Admin Fee/m²</h3>
+                        <div class="stat-value" id="admin-fee-per-m2">-</div>
+                        <div class="stat-subtitle">PLN/m²</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Fee Range</h3>
+                        <div class="stat-value" id="admin-fee-range">-</div>
+                        <div class="stat-subtitle">min - max</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="admin-fee-chart"></canvas>
+                </div>
+            </div>
+
+                         <!-- Geography Section -->
+             <div class="stats-section" id="geography">
+                 <h3>Geographic Analysis</h3>
+                 <div class="chart-container">
+                     <canvas id="geo-scatter"></canvas>
+                 </div>
+                 <div class="chart-container">
+                     <canvas id="distance-chart"></canvas>
+                 </div>
+                 <div class="chart-container">
+                     <canvas id="rings-chart"></canvas>
+                 </div>
+             </div>
+
+             <!-- Insights Section -->
+             <div class="stats-section" id="insights">
+                 <h3>Market Insights</h3>
+                 
+                 <!-- Price Segments -->
+                 <div class="insight-section">
+                     <h4>Price Segments</h4>
+                     <div class="stats-grid">
+                         <div class="stat-card">
+                             <h3>Budget (≤2000 PLN)</h3>
+                             <div class="stat-value" id="budget-count">-</div>
+                             <div class="stat-subtitle">offers</div>
+                         </div>
+                         <div class="stat-card">
+                             <h3>Mid-range (2001-3000 PLN)</h3>
+                             <div class="stat-value" id="mid-count">-</div>
+                             <div class="stat-subtitle">offers</div>
+                         </div>
+                         <div class="stat-card">
+                             <h3>Premium (3001-4000 PLN)</h3>
+                             <div class="stat-value" id="premium-count">-</div>
+                             <div class="stat-subtitle">offers</div>
+                         </div>
+                         <div class="stat-card">
+                             <h3>Luxury (>4000 PLN)</h3>
+                             <div class="stat-value" id="luxury-count">-</div>
+                             <div class="stat-subtitle">offers</div>
+                         </div>
+                     </div>
+                     <div class="chart-container">
+                         <canvas id="price-segments-chart"></canvas>
+                     </div>
+                 </div>
+
+                 <!-- Best Deals -->
+                 <div class="insight-section">
+                     <h4>Best Value Deals</h4>
+                     <div class="table-container">
+                         <table id="deals-table" class="data-table">
+                             <thead>
+                                 <tr>
+                                     <th>District</th>
+                                     <th>Price/m²</th>
+                                     <th>Total Cost</th>
+                                     <th>Area</th>
+                                     <th>Value Score</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="deals-table-body">
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+
+                 <!-- Data Quality -->
+                 <div class="insight-section">
+                     <h4>Data Quality Analysis</h4>
+                     <div class="chart-container">
+                         <canvas id="data-quality-chart"></canvas>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="statistics.js"></script>
+</body>
+</html>
