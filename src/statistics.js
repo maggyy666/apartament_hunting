@@ -1,3 +1,5 @@
+console.log("[BUILD]", "statistics.js loaded at", new Date().toISOString());
+
 // Global variables
 let allOffers = [];
 let chartInstances = {}; // Store chart references to prevent duplication
@@ -17,6 +19,9 @@ function loadData() {
         download: true,
         header: true,
         complete: function(results) {
+            console.log("=== Papa.parse results ===");
+            console.log("rows (Papa):", results.data.length);
+            
             // Deduplicate offers by ID
             const offerMap = new Map();
             results.data.forEach(offer => {
@@ -31,6 +36,8 @@ function loadData() {
                 !isNaN(parseFloat(offer.lon))
             );
             
+            console.log("Offers with coordinates:", allOffers.length);
+            
             // Convert numeric fields
             allOffers.forEach(offer => {
                 offer.lat = parseFloat(offer.lat);
@@ -44,7 +51,7 @@ function loadData() {
             updateStatsModal();
         },
         error: function(error) {
-            console.error('Error loading CSV:', error);
+            console.error('=== Error loading CSV ===', error);
             alert('Error loading data. Check if CSV file exists.');
         }
     });
