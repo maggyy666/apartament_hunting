@@ -910,3 +910,152 @@ body {
         font-size: 0.8rem;
     }
 }
+
+/* Offers without coordinates section */
+.offers-section {
+    background: white;
+    margin: 2rem auto;
+    max-width: 1200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.offers-section h3 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+.offers-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.offer-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #fafafa;
+    transition: all 0.3s ease;
+}
+
+.offer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.offer-price {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.offer-item:hover {
+    border-color: #667eea;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
+}
+
+.offer-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.offer-details {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.offer-address {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.offer-price {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.offer-area {
+    color: #28a745;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.offer-link {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.offer-link:hover {
+    color: #5a6fd8;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .offers-section {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    .offer-details {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .offer-title {
+        font-size: 1rem;
+    }
+}
+
+/* Content section for pages */
+.content-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.content-section h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.stats-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.stats-info p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.no-offers {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-style: italic;
+}
+
+.error {
+    color: #dc3545;
+    text-align: center;
+    padding: 20px;
+}

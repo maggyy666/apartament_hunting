@@ -1,8 +1,11 @@
+console.log("[BUILD]", "script.js loaded at", new Date().toISOString());
+
 // Global variables
 let map;
 let markers = [];
 let allOffers = [];
 let filteredOffers = [];
+let mapOffers = [];
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -26,18 +29,39 @@ function initializeMap() {
 
 // Load data from CSV file
 function loadData() {
-    Papa.parse('../data/oferty_geo.csv', {
+    const csvUrl = '/data/oferty_geo.csv?nocache=' + Date.now(); // ⬅ ważne: bezwzględna ścieżka
+    console.log("=== Loading CSV file ===", csvUrl);
+
+    // szybka diagnostyka
+    fetch(csvUrl, { cache: 'no-store' })
+        .then(r => (console.log("CSV status:", r.status), r.text()))
+        .then(t => console.log("CSV rows(text split):", t.split('\n').length, "bytes:", t.length))
+        .catch(e => console.error("CSV fetch error:", e));
+
+    Papa.parse(csvUrl, {
         download: true,
         header: true,
+        skipEmptyLines: true,
         complete: function(results) {
-            allOffers = results.data.filter(offer => 
-                offer.lat && offer.lon && 
-                !isNaN(parseFloat(offer.lat)) && 
-                !isNaN(parseFloat(offer.lon))
-            );
+            console.log("=== Papa.parse results ===");
+            console.log("rows (Papa):", results.data.length);
+            console.log("first row:", results.data[0]);
+            console.log("last row:", results.data[results.data.length-1]);
+            // Separate offers with and without coordinates
+            const offersWithCoords = results.data.filter(offer => {
+                const lat = parseFloat(offer.lat);
+                const lon = parseFloat(offer.lon);
+                return Number.isFinite(lat) && Number.isFinite(lon);
+            });
             
-            // Convert numeric fields
-            allOffers.forEach(offer => {
+            const offersWithoutCoords = results.data.filter(offer => {
+                const lat = parseFloat(offer.lat);
+                const lon = parseFloat(offer.lon);
+                return !Number.isFinite(lat) || !Number.isFinite(lon);
+            });
+            
+            // Convert numeric fields for offers with coordinates
+            offersWithCoords.forEach(offer => {
                 offer.lat = parseFloat(offer.lat);
                 offer.lon = parseFloat(offer.lon);
                 offer.najem_pln = parseFloat(offer.najem_pln) || 0;
@@ -45,18 +69,69 @@ function loadData() {
                 offer.metraz_m2 = parseFloat(offer.metraz_m2) || null;
             });
             
-
+            // Convert numeric fields for offers without coordinates
+            offersWithoutCoords.forEach(offer => {
+                offer.najem_pln = parseFloat(offer.najem_pln) || 0;
+                offer.czynsz_adm_pln = parseFloat(offer.czynsz_adm_pln) || 0;
+                offer.metraz_m2 = parseFloat(offer.metraz_m2) || null;
+            });
             
-
+            // Store all offers (with and without coordinates)
+            allOffers = [...offersWithCoords, ...offersWithoutCoords];
             
-            filteredOffers = [...allOffers];
+            // For map display, use only offers with coordinates
+            filteredOffers = [...offersWithCoords];
+            
+            // Store offers with coordinates separately for map
+            mapOffers = [...offersWithCoords];
+            
+            // Log statistics
+            console.log(`Loaded ${allOffers.length} total offers`);
+            console.log(`- ${offersWithCoords.length} offers with coordinates (shown on map)`);
+            console.log(`- ${offersWithoutCoords.length} offers without coordinates (not shown on map)`);
+            
+            // Debug: check for null/undefined values
+            const nullLat = offersWithCoords.filter(o => o.lat === null || o.lat === undefined).length;
+            const nullLon = offersWithCoords.filter(o => o.lon === null || o.lon === undefined).length;
+            console.log(`- ${nullLat} offers with null lat`);
+            console.log(`- ${nullLon} offers with null lon`);
+            
+            // (opcjonalny) sanity check – łagodny box
+            const withinBox = offersWithCoords.filter(o =>
+                o.lat >= 49.90 && o.lat <= 50.15 && o.lon >= 19.70 && o.lon <= 20.20
+            );
+            console.log(`- ${withinBox.length} offers within wide Krakow box`);
+            
+            // Debug: check for offers with zero prices
+            const zeroPriceOffers = offersWithCoords.filter(o => 
+                (o.najem_pln || 0) === 0
+            ).length;
+            console.log(`- ${zeroPriceOffers} offers with zero rent price`);
+            
+            // Use all offers with coordinates (no hard filtering)
+            mapOffers = [...offersWithCoords];
+            
+            // Debug: check what's actually being displayed
+            console.log(`=== FINAL STATS ===`);
+            console.log(`- mapOffers.length: ${mapOffers.length}`);
+            console.log(`- allOffers.length: ${allOffers.length}`);
+            console.log(`- filteredOffers.length: ${filteredOffers.length}`);
+            
+            // Check for any offers with invalid data that might be filtered out
+            const invalidOffers = mapOffers.filter(o => 
+                !o.id || !o.title || !o.ulica || !o.url
+            );
+            console.log(`- Invalid offers (missing required fields): ${invalidOffers.length}`);
             
             updateMap();
             populateDistrictFilter();
             updateTotalOffers();
         },
         error: function(error) {
-            console.error('Error loading CSV:', error);
+            console.error('=== Error loading CSV ===');
+            console.error('Error details:', error);
+            console.error('Error type:', typeof error);
+            console.error('Error message:', error.message);
             alert('Błąd podczas ładowania danych. Sprawdź czy plik CSV istnieje.');
         }
     });
@@ -106,8 +181,11 @@ function updateMap() {
     markers.forEach(marker => map.removeLayer(marker));
     markers = [];
     
-    // Add new markers
-    const prices = filteredOffers.map(offer => offer.najem_pln + (offer.czynsz_adm_pln || 0)).filter(price => price > 0);
+    console.log(`=== UPDATE MAP ===`);
+    console.log(`- mapOffers.length: ${mapOffers.length}`);
+    
+    // Add new markers from mapOffers (offers with valid coordinates)
+    const prices = mapOffers.map(offer => offer.najem_pln + (offer.czynsz_adm_pln || 0)).filter(price => price > 0);
     
     // Debug price ranges
     if (prices.length > 0) {
@@ -118,7 +196,8 @@ function updateMap() {
         console.log('Expensive prices (>5k):', expensivePrices.length, 'offers');
     }
     
-    filteredOffers.forEach(offer => {
+    let markersAdded = 0;
+    mapOffers.forEach(offer => {
         const totalCost = offer.najem_pln + (offer.czynsz_adm_pln || 0);
         const color = getPriceColor(totalCost, prices);
         
@@ -142,7 +221,10 @@ function updateMap() {
             .on('click', () => showOfferDetails(offer));
         
         markers.push(marker);
+        markersAdded++;
     });
+    
+    console.log(`- Markers actually added to map: ${markersAdded}`);
 }
 
 // Extract area from title
@@ -405,6 +487,11 @@ function applyFilters() {
         return priceMatch && districtMatch;
     });
     
+    // markerami pokazuj tylko te z koordynatami, po filtrach
+    mapOffers = filteredOffers.filter(o =>
+        o.lat && o.lon && !isNaN(parseFloat(o.lat)) && !isNaN(parseFloat(o.lon))
+    );
+    
     updateMap();
     updateTotalOffers();
 }
@@ -416,6 +503,9 @@ function clearFilters() {
     document.getElementById('district-filter').value = '';
     
     filteredOffers = [...allOffers];
+    mapOffers = filteredOffers.filter(o =>
+        o.lat && o.lon && !isNaN(parseFloat(o.lat)) && !isNaN(parseFloat(o.lon))
+    );
     updateMap();
     updateTotalOffers();
 }
@@ -437,5 +527,8 @@ function populateDistrictFilter() {
 
 // Update total offers count
 function updateTotalOffers() {
-    document.getElementById('total-offers').textContent = filteredOffers.length;
+    // Show total offers (with and without coordinates)
+    document.getElementById('total-offers').textContent = allOffers.length;
 }
+
+
