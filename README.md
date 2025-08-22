@@ -10,4 +10,4 @@
 
 >> cd processing && poetry run python geo_processing.py
 
->> python -m http.sever 8000
+>> poetry run python -m http.sever 8000

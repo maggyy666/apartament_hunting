@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oferty bez współrzędnych - Apartament Hunting</title>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css?v=dev1">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <h1><a href="index.html" class="nav-logo">Apartament Hunting</a></h1>
+            <div class="nav-actions">
+                <a href="statistics.html" class="nav-link">Statistics</a>
+                <a href="offers-without-coords.html" class="nav-link active">Oferty bez współrzędnych</a>
+                <div class="nav-stats">
+                    Offers: <span id="total-offers">0</span>
+                </div>
+                <a href="legal.html" class="nav-link">Legal</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-section">
+            <h1>Oferty bez współrzędnych geograficznych</h1>
+            <p>Poniżej znajdują się oferty, które nie mają przypisanych współrzędnych geograficznych i nie mogą być wyświetlone na mapie.</p>
+            
+            <div class="stats-info">
+                <p><strong>Łącznie ofert bez współrzędnych:</strong> <span id="total-offers-without-coords">0</span></p>
+            </div>
+
+            <div class="offers-section">
+                <div class="offers-list" id="offers-without-coords-list">
+                    <!-- Offers will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Papa Parse for CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="offers-without-coords.js?v=dev1"></script>
+</body>
+</html>

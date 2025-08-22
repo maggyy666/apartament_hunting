@@ -10,7 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Load data from CSV file
 function loadData() {
-    Papa.parse('../data/oferty_geo.csv', {
+    const csvUrl = '/data/oferty_geo.csv?nocache=' + Date.now();
+    console.log("=== Loading CSV file ===", csvUrl);
+    
+    Papa.parse(csvUrl, {
         download: true,
         header: true,
         complete: function(results) {
